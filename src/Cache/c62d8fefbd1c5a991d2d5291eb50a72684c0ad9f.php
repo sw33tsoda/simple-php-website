@@ -1,0 +1,1 @@
+<p>Welcome to PHP</p><?php /**PATH C:\xampp\htdocs\yourlaravel\src\Views/Welcome.blade.php ENDPATH**/ ?>
