@@ -40,4 +40,4 @@
     </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
-<?php /**PATH C:\xampp\htdocs\yourlaravel\src\Views/Welcome.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\yourlaravel\src\Views/MyPost.blade.php ENDPATH**/ ?>

@@ -6,10 +6,6 @@ use Models\UsersModel;
 
 class UsersController extends MainController {
 
-    function welcome() {
-        echo $this->blade->make('Welcome')->render();
-    }
-
     function register() {
         if ($_POST) {
             $data = $_POST;

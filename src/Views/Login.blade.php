@@ -1,5 +1,6 @@
-
-<h2 class="title is-2">Login</h2>
+<br>
+<center><h2 class="title is-2">Login</h2></center>
+<br>
 
 <div class="columns is-centered">
     <form class="column is-one-quarter" name="register" method="POST" enctype="multipart/form-data">

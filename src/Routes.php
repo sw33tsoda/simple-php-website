@@ -1,9 +1,11 @@
 <?php
 
 use Controllers\UsersController;
+use Controllers\PostsController;
 
 $route = isset($_GET['site']) ? $_GET['site'] : '';
 $users = new UsersController;
+$posts = new PostsController;
 
 switch ($route) {
     case 'welcome': { 
@@ -32,10 +34,33 @@ switch ($route) {
     case 'logout': {
         if (isset($_SESSION['user']))
             $users->logout();
+        break;
+    }
+
+    case 'add_post': {
+        if (isset($_SESSION['user']))
+            $posts->add();
+        break;
+    }
+
+    case 'my_post': {
+        if (isset($_SESSION['user']))
+            $posts->my_post();
+        break;
+    }
+
+    case 'remove_post': {
+        if (isset($_SESSION['user']))
+            $posts->remove();
+        break;
+    }
+    
+    case 'test': {
+        break;
     }
 
     default: {
-        include __DIR__."./HTTP_WARNINGS/404.php";
+        header('location:/?site=welcome');
         break;
     }
 }

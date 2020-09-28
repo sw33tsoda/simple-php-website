@@ -3,38 +3,22 @@
     
     <!-- logo or branding image on left side -->
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+      <a class="navbar-item" href="/?site=welcome">
+        <img src="src/Storage/Web/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="35px" height="35px">
       </a>
-      <div class="navbar-burger"  data-target="navbar-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
     </div>
 
     <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
-    <div class="navbar-menu" id="navbar-menu">
-      <!-- navbar items | left side -->
-      <div class="navbar-start">
-        <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Docs</a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="#">Overview</a>
-              <a class="navbar-item" href="#">Elements</a>
-              <a class="navbar-item" href="#">Components</a>
-              <hr class="navbar-divider">
-              <div class="navbar-item"> Version 0.1.0</div>
-            </div>
-          </div>
-      </div>
+    <div class="navbar-end navbar-item" id="navbar-menu">
 
       <!-- navbar items | right side -->
-      <div class="navbar-end">
+      <div class="navbar-end columns is-vcentered">
         <?php if(!isset($_SESSION['user'])): ?>
             <a class="navbar-item" href="/?site=login">Login</a>
             <a class="navbar-item" href="/?site=register">Register</a>
         <?php else: ?>
+            <a class="navbar-item button is-success is-small" href="/?site=add_post">ADD POST</a>
+            <a class="navbar-item button is-warning is-small" href="/?site=my_post">MY POST</a>
             <a class="navbar-item" href="/?site=edit"><?php echo e($_SESSION['user']['username']); ?></a>
             <a class="navbar-item" href="/?site=logout">Log out</a>
         <?php endif; ?>
@@ -42,4 +26,6 @@
 
     </div>
   </div>
+
+  
 </nav><?php /**PATH C:\xampp\htdocs\yourlaravel/src/Layouts/Navbar.blade.php ENDPATH**/ ?>

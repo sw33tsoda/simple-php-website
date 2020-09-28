@@ -6,6 +6,7 @@ use Exception;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Jenssegers\Blade\Blade;
+use Models\PostsModel;
 
 class MainController {
     protected $log;
@@ -24,6 +25,14 @@ class MainController {
         $this->root_dir = explode("\\",__DIR__);
         array_pop($this->root_dir);
         $this->root_dir = join("\\",$this->root_dir);
+    }
+
+    function welcome() {
+        
+        $model = new PostsModel;
+        $result = $model->getAll();
+
+        echo $this->blade->make('Welcome',['posts' => $result])->render();
     }
 
     function saveFile($file,$type,$folder) {
