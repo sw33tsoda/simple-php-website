@@ -13,14 +13,14 @@
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-                <input class="input" type="text" name="password" value="">
+                <input class="input" type="password" name="password" value="">
             </div>
         </div>
 
         <div class="field">
             <label class="label">Re-enter password</label>
             <div class="control">
-                <input class="input" type="text" name="password_confirmation">
+                <input class="input" type="password" name="password_confirmation">
             </div>
         </div>
 

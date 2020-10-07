@@ -4,6 +4,12 @@ namespace Models;
 use Database\DBConnection;
 
 class UsersModel extends DBConnection {
+
+    function getUserProfileById($id) {
+        $sql = "SELECT * FROM users WHERE `id` = $id LIMIT 1";
+        return $this->connection->query($sql);
+    }
+
     function register($info) {
         $data = (object) $info;
         $sql = "INSERT INTO users (`username`,`password`,`image`) VALUES ('$data->username','$data->password','$data->image')";

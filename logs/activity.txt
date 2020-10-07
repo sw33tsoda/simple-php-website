@@ -282,3 +282,6 @@
 [2020-09-26T15:46:29.814128+07:00] activity.ERROR: Failed to save the file! [] []
 [2020-09-27T12:27:14.452245+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
 [2020-09-29T00:17:50.128590+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-03T18:24:38.679105+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-03T18:27:38.919623+07:00] activity.WARNING: A file has been saved at C:\xampp\htdocs\yourlaravel\src\Storage\Images\5f78602ae0456.jpg [] []
+[2020-10-07T23:28:48.486698+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []

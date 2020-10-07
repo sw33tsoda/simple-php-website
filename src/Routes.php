@@ -13,6 +13,11 @@ switch ($route) {
         break;
     }
 
+    case 'user_profile'; {
+        $users->user_profile();
+        break;
+    }
+
     case 'register': {
         if (!isset($_SESSION['user']))
             $users->register();

@@ -6,6 +6,13 @@ use Models\UsersModel;
 
 class UsersController extends MainController {
 
+    function user_profile() {
+        $id = $_GET['id'];
+        $model = new UsersModel;
+        $result = $model->getUserProfileById($id);
+        echo $this->blade->make('UserProfile',['user_info' => (object) $result->fetch_object()])->render();
+    }
+
     function register() {
         if ($_POST) {
             $data = $_POST;
