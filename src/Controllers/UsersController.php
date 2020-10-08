@@ -2,7 +2,7 @@
 namespace Controllers;
 use Controllers\MainController;
 use Models\UsersModel;
-
+use Validation\UsersValidation;
 
 class UsersController extends MainController {
 
@@ -14,9 +14,12 @@ class UsersController extends MainController {
     }
 
     function register() {
-        if ($_POST) {
-            $data = $_POST;
-            if ($data['password'] == $data['password_confirmation'] && !empty($data['password']) && !empty($data['password_confirmation'])) {
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $validatedData = new UsersValidation($_POST);
+            if (!$validatedData->hasError()) {
+                $data = $validatedData->getData();
                 // FILE HANDLING.
                 $data['image'] = $this->saveFile($_FILES,'image','Images');
                 // MD5-IZE PASSWORD.
@@ -30,10 +33,12 @@ class UsersController extends MainController {
                 } else {
                     echo "Registration failure!";
                 }
+            } else {
+                $errors = $validatedData->getErrorsList();
             }
         }
 
-        echo $this->blade->make('Register')->render();
+        echo $this->blade->make('Register',['errors' => $errors])->render();
     }
 
     function login() {

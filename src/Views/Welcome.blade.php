@@ -20,7 +20,7 @@
                         </div>
                         <div class="media-content">
                             <p class="title is-4">{{$post['title']}}</p>
-                            <p class="subtitle is-6">{{$post['created_at']}} by <a href="#">{{$post['username']}}</a></p>
+                            <p class="subtitle is-6">{{$post['created_at']}} by <a href="/?site=user_profile&id={{$post['user_id']}}">{{$post['username']}}</a></p>
                         </div>
                     </div>
                 

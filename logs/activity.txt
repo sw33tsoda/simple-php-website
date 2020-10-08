@@ -285,3 +285,8 @@
 [2020-10-03T18:24:38.679105+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
 [2020-10-03T18:27:38.919623+07:00] activity.WARNING: A file has been saved at C:\xampp\htdocs\yourlaravel\src\Storage\Images\5f78602ae0456.jpg [] []
 [2020-10-07T23:28:48.486698+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-07T23:37:32.321620+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-08T00:07:51.237421+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-08T00:54:11.040689+07:00] activity.WARNING: sw33tsoda has logged in! {"id":"135","username":"sw33tsoda","password":"4297f44b13955235245b2497399d7a93","image":"5f688a4dd2a34.jpg"} []
+[2020-10-09T00:40:13.932199+07:00] activity.WARNING: A file has been saved at C:\xampp\htdocs\yourlaravel\src\Storage\Images\5f7f4efde1908.png [] []
+[2020-10-09T00:40:13.985765+07:00] activity.WARNING: REG_SUCCESS {"username":"duchuy22","password":"5b4705a669316d940fe23b6ed91ed829","password_confirmation":"K9n6sgmv","image":"5f7f4efde1908.png"} []

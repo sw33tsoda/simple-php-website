@@ -20,7 +20,7 @@
                         </div>
                         <div class="media-content">
                             <p class="title is-4"><?php echo e($post['title']); ?></p>
-                            <p class="subtitle is-6"><?php echo e($post['created_at']); ?> by <a href="#"><?php echo e($post['username']); ?></a></p>
+                            <p class="subtitle is-6"><?php echo e($post['created_at']); ?> by <a href="/?site=user_profile&id=<?php echo e($post['user_id']); ?>"><?php echo e($post['username']); ?></a></p>
                         </div>
                     </div>
                 

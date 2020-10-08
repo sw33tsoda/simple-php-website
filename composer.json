@@ -17,7 +17,8 @@
         "psr-4": {
             "Controllers\\": "src/Controllers/",
             "Models\\": "src/Models/",
-            "Database\\": "src/"
+            "Database\\": "src/",
+            "Validation\\": "src/Validations/"
         }
     }
 }

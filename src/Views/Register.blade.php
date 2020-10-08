@@ -9,6 +9,12 @@
             <div class="control">
                 <input class="input" type="text" name="username">
             </div>
+
+            @if ($errors && $errors['username']['is_error'])
+                @foreach ($errors['username']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
         </div>
 
         <div class="field">
@@ -16,6 +22,12 @@
             <div class="control">
                 <input class="input" type="password" name="password">
             </div>
+
+            @if ($errors && $errors['password']['is_error'])
+                @foreach ($errors['password']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
         </div>
 
         <div class="field">

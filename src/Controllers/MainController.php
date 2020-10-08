@@ -13,7 +13,6 @@ class MainController {
     protected $root_dir;
 
     function __construct() {
-
         // LOG
         $this->log = new Logger('activity');
         $this->log->pushHandler(new StreamHandler('logs/activity.txt', Logger::INFO));

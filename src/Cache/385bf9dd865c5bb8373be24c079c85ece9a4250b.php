@@ -9,19 +9,31 @@
             <div class="control">
                 <input class="input" type="text" name="username">
             </div>
+
+            <?php if($errors && $errors['username']['is_error']): ?>
+                <?php $__currentLoopData = $errors['username']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-                <input class="input" type="text" name="password">
+                <input class="input" type="password" name="password">
             </div>
+
+            <?php if($errors && $errors['password']['is_error']): ?>
+                <?php $__currentLoopData = $errors['password']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field">
             <label class="label">Re-enter password</label>
             <div class="control">
-                <input class="input" type="text" name="password_confirmation">
+                <input class="input" type="password" name="password_confirmation">
             </div>
         </div>
 
