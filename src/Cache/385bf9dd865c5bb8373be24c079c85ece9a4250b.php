@@ -29,19 +29,18 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endif; ?>
         </div>
-
-        <div class="field">
-            <label class="label">Re-enter password</label>
-            <div class="control">
-                <input class="input" type="password" name="password_confirmation">
-            </div>
-        </div>
-
+        
         <div class="field">
             <label class="label">Image</label>  
             <div class="control">
                 <input type="file" name="image">
             </div>
+
+            <?php if($errors && $errors['image']['is_error']): ?>
+                <?php $__currentLoopData = $errors['image']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field is-grouped">

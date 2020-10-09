@@ -15,8 +15,8 @@ class UsersController extends MainController {
 
     function register() {
         $errors = [];
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST['image'] = $_FILES['image'];
             $validatedData = new UsersValidation($_POST);
             if (!$validatedData->hasError()) {
                 $data = $validatedData->getData();
@@ -29,7 +29,8 @@ class UsersController extends MainController {
                 $register = $model->register($data);
                 if ($register) {
                     $this->log->warning('REG_SUCCESS',$data);
-                    echo "Registration successful!";
+                    echo "<center>Registration successful!</center>";
+                    header('refresh:1;url=/?site=welcome');
                 } else {
                     echo "Registration failure!";
                 }
@@ -54,19 +55,21 @@ class UsersController extends MainController {
                 $_SESSION['user'] = $user;
                 $this->log->warning("{$user['username']} has logged in!",$user);
                 header('location:/?site=welcome');
+            } else {
+                echo "<script>alert('Login failure!')</script>";
             }
         }
         echo $this->blade->make('Login')->render();
     }
 
     function edit() {
-
-        if ($_POST) {
-            $data = $_POST;
-
-            if ($data['password'] == $data['password_confirmation'] && !empty($data['password']) && !empty($data['password_confirmation'])) {
+        $errors = [];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST['image'] = $_FILES['image'];
+            $validatedData = new UsersValidation($_POST);
+            if (!$validatedData->hasError()) {
+                $data = $validatedData->getData();
                 $data['password'] = md5($data['password']);
-
                 // CHECK IF USER WANT TO CHANGE THE IMAGE.
                 if ($_FILES['image']['name'] == '') $data['image'] = $_SESSION['user']['image'];
                 else $data['image'] = $this->saveFile($_FILES,'image','Images');
@@ -82,10 +85,11 @@ class UsersController extends MainController {
                 } else {
                     echo "Changing account information failed!";
                 }
+            } else {
+                $errors = $validatedData->getErrorsList();
             }
         }
-
-        echo $this->blade->make('Edit',['user_info' => (object) $_SESSION['user']])->render();
+        echo $this->blade->make('Edit',['user_info' => (object) $_SESSION['user'],'errors' => $errors])->render();
     }
 
     function logout() {

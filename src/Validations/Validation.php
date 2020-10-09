@@ -10,6 +10,22 @@ trait Validation {
         $this->value = $value;
         return $this;
     }
+
+    function allowedExtension($string_of_extensions) {
+        if (!empty($this->value['name'])) {
+            $string_of_extensions = explode('|',$string_of_extensions);
+            $file_extension_temp = explode('.',$this->value['name']);
+            $file_extension = $file_extension_temp[count($file_extension_temp) - 1];
+            $supported_extensions = join(',',$string_of_extensions);
+            foreach ($string_of_extensions as $extension) {
+                if ($extension !== $file_extension) {
+                    $this->errors['image'] = "This file type is not supported. Supported extensions : {$supported_extensions}";
+                }
+                break;
+            }
+        }
+        return $this;
+    }
     
     function required() {
         if (empty($this->value))
@@ -19,7 +35,7 @@ trait Validation {
 
     function email($value) {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL))
-            $this->errors[' email'] = "Invalid email address.";
+            $this->errors['email'] = "Invalid email address.";
         return $this;
     }
     
@@ -36,9 +52,11 @@ trait Validation {
     }
 
     function done() {
+        $final_errors = $this->errors;
+        $this->errors = null;
         return [
-            'is_error' => count($this->errors) > 0 ? true : false,
-            'errors_list' => $this->errors
+            'is_error' => count((array) $final_errors) > 0 ? true : false,
+            'errors_list' => $final_errors
         ];
     }
 }

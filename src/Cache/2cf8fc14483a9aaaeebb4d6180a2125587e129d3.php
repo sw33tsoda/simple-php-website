@@ -8,6 +8,12 @@
             <div class="control">
                 <input class="input" type="text" name="username" value="<?php echo e($user_info->username); ?>">
             </div>
+
+            <?php if($errors && $errors['username']['is_error']): ?>
+                <?php $__currentLoopData = $errors['username']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field">
@@ -15,21 +21,26 @@
             <div class="control">
                 <input class="input" type="password" name="password" value="">
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Re-enter password</label>
-            <div class="control">
-                <input class="input" type="password" name="password_confirmation">
-            </div>
+            <?php if($errors && $errors['password']['is_error']): ?>
+                <?php $__currentLoopData = $errors['password']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field">
             <label class="label">Image</label>
             <img class="image" src="src/Storage/Images/<?php echo e($user_info->image); ?>" width="150px"/>
             <div class="control">
-                <input type="file" name="image" value="<?php echo e($user_info->image); ?>">
+                <input type="file" name="image">
             </div>
+
+            <?php if($errors && $errors['image']['is_error']): ?>
+                <?php $__currentLoopData = $errors['image']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field is-grouped">

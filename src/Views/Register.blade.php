@@ -29,19 +29,18 @@
                 @endforeach
             @endif
         </div>
-
-        <div class="field">
-            <label class="label">Re-enter password</label>
-            <div class="control">
-                <input class="input" type="password" name="password_confirmation">
-            </div>
-        </div>
-
+        
         <div class="field">
             <label class="label">Image</label>  
             <div class="control">
                 <input type="file" name="image">
             </div>
+
+            @if ($errors && $errors['image']['is_error'])
+                @foreach ($errors['image']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
         </div>
 
         <div class="field is-grouped">
