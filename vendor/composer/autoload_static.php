@@ -23,7 +23,7 @@ class ComposerStaticInitabef6d1a6e802a65dfb2462c87eb8339
         ),
         'V' => 
         array (
-            'Validation\\' => 11,
+            'Validations\\' => 12,
         ),
         'S' => 
         array (
@@ -77,7 +77,7 @@ class ComposerStaticInitabef6d1a6e802a65dfb2462c87eb8339
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'Validation\\' => 
+        'Validations\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Validations',
         ),

@@ -2,7 +2,7 @@
 namespace Controllers;
 use Controllers\MainController;
 use Models\UsersModel;
-use Validation\UsersValidation;
+use Validations\UsersValidation;
 
 class UsersController extends MainController {
 

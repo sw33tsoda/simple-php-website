@@ -1,6 +1,6 @@
 <?php
 
-namespace Validation;
+namespace Validations;
 
 trait Validation {
     private $value;
@@ -29,7 +29,7 @@ trait Validation {
     
     function required() {
         if (empty($this->value))
-        $this->errors['required'] = "This field is required.";
+            $this->errors['required'] = "This field is required.";
         return $this;
     }
 
@@ -52,11 +52,11 @@ trait Validation {
     }
 
     function done() {
-        $final_errors = $this->errors;
+        $errors_found = $this->errors;
         $this->errors = null;
         return [
-            'is_error' => count((array) $final_errors) > 0 ? true : false,
-            'errors_list' => $final_errors
+            'is_error' => count((array) $errors_found) > 0 ? true : false,
+            'errors_list' => $errors_found
         ];
     }
 }

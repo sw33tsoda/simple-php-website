@@ -18,7 +18,7 @@
             "Controllers\\": "src/Controllers/",
             "Models\\": "src/Models/",
             "Database\\": "src/",
-            "Validation\\": "src/Validations/"
+            "Validations\\": "src/Validations/"
         }
     }
 }
