@@ -4,11 +4,17 @@ function Comment(props) {
     const {image,user_id,post_id} = props.data;
     const [comment,setComment] = useState('');
     const [commentList,setCommentList] = useState([]);
+    const [queryString,setQueryString] = useState({
+        post_id: post_id,
+        latest: true,
+        limit:10,
+    });
     const commentRef = useRef();
 
     useEffect(() => {
         const getCommentList = async () => {
-            fetch(`/?site=get_comment&post_id=${post_id}`).then((response) => {
+            const {post_id,latest,limit} = queryString;
+            fetch(`/?site=get_comment&post_id=${post_id}&latest=${latest}&limit=${limit}`).then((response) => {
                 response.text().then((text) => {
                     const data = text.split('@JSON@')[1];
                     setCommentList(JSON.parse(data));
@@ -18,7 +24,7 @@ function Comment(props) {
             });
         }
         getCommentList();
-    },[comment == '']);
+    },[comment == '',queryString]);
 
     const handleCommentInput = async (event) => {
         const {value} = event.target;
@@ -29,7 +35,6 @@ function Comment(props) {
         if (!comment) {
             alert('Say something...');
         } else {
-            console.log('yes');
             const data = new FormData();
             data.append('user_id',user_id);
             data.append('post_id',post_id);
@@ -51,6 +56,24 @@ function Comment(props) {
         }
     }
 
+    const handleSorting = async (event) => {
+        const value = await JSON.parse(event.target.value);
+        await setQueryString({
+            ...queryString,
+            latest:value,
+        });
+
+    }
+
+    const handleGetMoreComments = async (event) => {
+        event.preventDefault();
+        await setQueryString({
+            ...queryString,
+            limit: queryString.limit + 10,
+        });
+    }
+    
+    console.log(queryString);
     return (
         <React.Fragment>
             {user_id && <CommentForm 
@@ -59,15 +82,17 @@ function Comment(props) {
                 commentValue={comment}
                 commentRef={commentRef}
                 userImage={image}
+                commentSortingType={queryString.latest}
+                changeCommentSortingType={handleSorting}
             />}
             <br></br>
-            <CommentList data={commentList}/>
+            <CommentList data={commentList} getMoreComments={handleGetMoreComments}/>
         </React.Fragment>
     );
 }
 
 function CommentForm(props) {
-    const {commentInput,addComment,commentValue,commentRef,userImage} = props;
+    const {commentInput,addComment,commentValue,commentRef,userImage,commentSortingType,changeCommentSortingType} = props;
     return (
         <article className="media">
             <figure className="media-left">
@@ -92,6 +117,14 @@ function CommentForm(props) {
                     <label className="checkbox">
                         {commentValue.length}/1000
                     </label>
+                    <div className="control ml-4">
+                        <div className="select">
+                            <select value={commentSortingType} onChange={changeCommentSortingType}>    
+                                <option value={true}>Latest</option>
+                                <option value={false}>Oldest</option>
+                            </select>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 </nav>
@@ -101,29 +134,32 @@ function CommentForm(props) {
 }
 
 function CommentList(props) {
-    const {data} = props;
+    const {data,getMoreComments} = props;
     return (
-        data.map((comment,index) => {
-            return <div className="bd-snippet-preview mb-4" key={index}>
-            <article className="media">
-                <figure className="media-left">
-                <p className="image is-64x64 is-square">
-                    <img className="is-rounded" src={`src/Storage/Images/${comment.avatar}`}/>
-                </p>
-                </figure>
-                <div className="content">
-                    <p>
-                        <a style={{color:'black'}} href={`/?site=user_profile&id=${comment.user_id}`}><strong>{comment.username}</strong></a>
-                    <br/>
-                        <span style={{fontStyle:'italic',fontSize:'0.9em'}}>
-                            {comment.comment}
-                        </span>
-                    <br/>
-                        <small><a>Like</a> · {comment.created_at}</small>
+        <React.Fragment>
+            {data.map((comment,index) => {
+                return <div className="bd-snippet-preview mb-4" key={index}>
+                <article className="media">
+                    <figure className="media-left">
+                    <p className="image is-64x64 is-square">
+                        <img className="is-rounded" src={`src/Storage/Images/${comment.avatar}`}/>
                     </p>
-                </div>
-            </article>
-        </div>
-        })
+                    </figure>
+                    <div className="content">
+                        <p>
+                            <a style={{color:'black'}} href={`/?site=user_profile&id=${comment.user_id}`}><strong>{comment.username}</strong></a>
+                        <br/>
+                            <span style={{fontStyle:'italic',fontSize:'0.9em'}}>
+                                {comment.comment}
+                            </span>
+                        <br/>
+                            <small><a>Like</a> · {comment.created_at}</small>
+                        </p>
+                    </div>
+                </article>
+            </div>
+            })}
+            <a href=" #" onClick={getMoreComments}>More comments</a>
+        </React.Fragment>
     );
 }
