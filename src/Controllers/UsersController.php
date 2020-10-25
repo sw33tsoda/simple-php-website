@@ -1,20 +1,25 @@
 <?php
 namespace Controllers;
 use Controllers\MainController;
+use Models\PostsModel;
 use Models\UsersModel;
 use Validations\UsersValidation;
 
 class UsersController extends MainController {
-
     function user_profile() {
         $id = $_GET['id'];
-        $model = new UsersModel;
-        $result = $model->getUserProfileById($id);
-        echo $this->blade->make('UserProfile',['user_info' => (object) $result->fetch_object()])->render();
+        $users_model = new UsersModel;
+        $posts_model = new PostsModel;
+        $user_info = $users_model->getUserProfileById($id)->fetch_object();
+        $user_posts = $posts_model->getByUserId($id);
+
+        $this->render('UserProfile',[
+            'user_info' => $user_info,
+            'user_posts' => $user_posts,
+            ]);
     }
 
     function register() {
-        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['image'] = $_FILES['image'];
             $validatedData = new UsersValidation($_POST);
@@ -35,11 +40,11 @@ class UsersController extends MainController {
                     echo "Registration failure!";
                 }
             } else {
-                $errors = $validatedData->getErrorsList();
+                $this->errors = $validatedData->getErrorsList();
             }
         }
 
-        echo $this->blade->make('Register',['errors' => $errors])->render();
+        $this->render('Register',['errors' => $this->errors]);
     }
 
     function login() {
@@ -59,11 +64,11 @@ class UsersController extends MainController {
                 echo "<script>alert('Login failure!')</script>";
             }
         }
-        echo $this->blade->make('Login')->render();
+        
+        $this->render('Login');
     }
 
     function edit() {
-        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['image'] = $_FILES['image'];
             $validatedData = new UsersValidation($_POST);
@@ -86,10 +91,10 @@ class UsersController extends MainController {
                     echo "Changing account information failed!";
                 }
             } else {
-                $errors = $validatedData->getErrorsList();
+                $this->errors = $validatedData->getErrorsList();
             }
         }
-        echo $this->blade->make('Edit',['user_info' => (object) $_SESSION['user'],'errors' => $errors])->render();
+        $this->render('Edit',['user_info' => (object) $_SESSION['user'],'errors' => $this->errors]);
     }
 
     function logout() {

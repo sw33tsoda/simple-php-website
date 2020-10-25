@@ -18,7 +18,7 @@
             <a class="navbar-item" href="/?site=register">Register</a>
         @else
             <a class="navbar-item button is-success is-small" href="/?site=add_post">ADD POST</a>
-            <a class="navbar-item button is-warning is-small" href="/?site=my_post">MY POST</a>
+            <!-- <a class="navbar-item button is-warning is-small" href="/?site=my_post">MY POST</a> -->
             <a class="navbar-item" href="/?site=user_profile&id={{$_SESSION['user']['id']}}">My profile</a>
             <a class="navbar-item" href="/?site=edit">{{$_SESSION['user']['username']}}</a>
             <a class="navbar-item" href="/?site=logout">Log out</a>

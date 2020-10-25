@@ -8,13 +8,10 @@ class MainValidation {
     protected $errors_list;
     protected $is_error = false;
 
-    function startValidating($readRules,$data) {
-        // SET DATA
-        $this->data = $data;
-
+    function startValidating($readRules) {
         // START VALIDATING IF WE HAVE VALUE. 
         if ($this->data) {
-            $readRules;
+            $this->errors_list = $readRules;
             // CHECK IF THERE IS A ERROR.
             foreach ($this->errors_list as $error) {
                 if ($error['is_error']) {
@@ -22,6 +19,15 @@ class MainValidation {
                 }
             }
         }
+    }
+
+    function setData($data) {
+        if ($data) {
+            $this->data = $data;
+        } else {
+            echo "No data!";
+        }
+        return $this;
     }
 
     function getData() {
@@ -38,6 +44,4 @@ class MainValidation {
     function getErrorsList() {
         return $this->errors_list;
     }
-
-
 }

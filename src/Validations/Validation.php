@@ -26,6 +26,13 @@ trait Validation {
         }
         return $this;
     }
+
+    function maxSize($size) {
+        // dd($this->value);
+        if (($this->value['size'] / 1024) / 1024 >= $size)
+            $this->errors['file_size'] = "Maximum file size is {$size}MB (Megabytes)";
+        return $this;
+    }
     
     function required() {
         if (empty($this->value))
@@ -33,19 +40,19 @@ trait Validation {
         return $this;
     }
 
-    function email($value) {
-        if (!filter_var($value, FILTER_VALIDATE_EMAIL))
+    function email() {
+        if (!filter_var($this->value, FILTER_VALIDATE_EMAIL))
             $this->errors['email'] = "Invalid email address.";
         return $this;
     }
     
-    function max_length($max_string_length) {
+    function maxLength($max_string_length) {
         if (strlen($this->value) > $max_string_length)
             $this->errors['max_length'] = "Must not exceed {$max_string_length} characters";
         return $this;
     }
 
-    function min_length($min_string_length) {
+    function minLength($min_string_length) {
         if (strlen($this->value) < $min_string_length)
             $this->errors['min_length'] = "Must contain at least {$min_string_length} characters";
         return $this;

@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-content columns">
                 <div class="column is-3">
-                    <img src="src/Storage/Images/{{$post['image']}}" alt="Placeholder image">
+                    <img src="src/Storage/Images/{{$post['image']}}" alt="Placeholder image" data-target="modal-bis">
                 </div>
                 <div class="column is-9">
                     <div class="media">
@@ -19,7 +19,7 @@
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4">{{$post['title']}}</p>
+                        <a href="/?site=show_post&post_id={{$post['id']}}"><p class="title is-4">{{$post['title']}}</p></a>
                             <p class="subtitle is-6">{{$post['created_at']}} by <a href="/?site=user_profile&id={{$post['user_id']}}">{{$post['username']}}</a></p>
                         </div>
                     </div>

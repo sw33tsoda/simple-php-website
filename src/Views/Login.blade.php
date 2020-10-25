@@ -5,9 +5,9 @@
 <div class="columns is-centered">
     <form class="column is-one-quarter" name="register" method="POST" enctype="multipart/form-data">
         <div class="field">
-            <label class="label">Username</label>
+            <label class="label">Email</label>
             <div class="control">
-                <input class="input" type="text" name="username">
+                <input class="input" type="email" name="email">
             </div>
         </div>
 

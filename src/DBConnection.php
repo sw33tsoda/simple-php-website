@@ -28,6 +28,8 @@ class DBConnection {
             'users' => "CREATE TABLE users (
                 `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                 `username` varchar(64),
+                `email` varchar(64),
+                `user_desc` varchar(512),
                 `password` varchar(64),
                 `image` varchar(64),
                 `created_at` datetime
@@ -35,10 +37,26 @@ class DBConnection {
 
             'posts' => "CREATE TABLE posts (
                 `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `user_id` int UNIQUE NOT NULL,
+                `user_id` int NOT NULL,
                 `title` varchar(512),
                 `content` varchar(4096),
                 `image` varchar(64),
+                `created_at` datetime
+            )",
+
+            'votes' => "CREATE TABLE votes (
+                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                `user_id` int NOT NULL,
+                `post_id` int NOT NULL,
+                `vote_type` varchar(32),
+                `created_at` datetime    
+            )",
+
+            'comments' => "CREATE TABLE comments (
+                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                `user_id` int NOT NULL,
+                `post_id` int NOT NULL,
+                `comment` varchar(1024),
                 `created_at` datetime
             )",
         ];

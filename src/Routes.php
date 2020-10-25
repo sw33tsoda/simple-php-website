@@ -1,11 +1,13 @@
 <?php
 
+use Controllers\CommentsController;
 use Controllers\UsersController;
 use Controllers\PostsController;
 
 $route = isset($_GET['site']) ? $_GET['site'] : '';
 $users = new UsersController;
 $posts = new PostsController;
+$comments = new CommentsController;
 
 switch ($route) {
     case 'welcome': { 
@@ -45,6 +47,22 @@ switch ($route) {
     case 'add_post': {
         if (isset($_SESSION['user']))
             $posts->add();
+        break;
+    }
+
+    case 'show_post': {
+        $posts->show_post();
+        break;
+    }
+
+    case 'add_comment': {
+        if (isset($_SESSION['user']))
+            $comments->add_comment();
+        break;
+    }
+    
+    case 'get_comment': {
+        $comments->get_comment();
         break;
     }
 

@@ -17,6 +17,19 @@
         </div>
 
         <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="text" name="email" value="{{$user_info->email}}">
+            </div>
+
+            @if ($errors && $errors['email']['is_error'])
+                @foreach ($errors['email']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
+        </div>
+
+        <div class="field">
             <label class="label">Password</label>
             <div class="control">
                 <input class="input" type="password" name="password" value="">
@@ -32,12 +45,24 @@
         <div class="field">
             <label class="label">Image</label>
             <img class="image" src="src/Storage/Images/{{$user_info->image}}" width="150px"/>
+            <br>
             <div class="control">
                 <input type="file" name="image">
             </div>
 
             @if ($errors && $errors['image']['is_error'])
                 @foreach ($errors['image']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
+        </div>
+
+        <div class="field">
+            <label class="label">User description</label>
+            <textarea  class="textarea" placeholder="About you." name="user_desc">{{$user_info->user_desc}}</textarea>
+
+            @if ($errors && $errors['user_desc']['is_error'])
+                @foreach ($errors['user_desc']['errors_list'] as $error)
                     <small class="has-text-danger">{{$error}}</small><br>
                 @endforeach
             @endif

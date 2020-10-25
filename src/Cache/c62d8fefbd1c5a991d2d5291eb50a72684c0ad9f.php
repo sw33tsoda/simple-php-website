@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-content columns">
                 <div class="column is-3">
-                    <img src="src/Storage/Images/<?php echo e($post['image']); ?>" alt="Placeholder image">
+                    <img src="src/Storage/Images/<?php echo e($post['image']); ?>" alt="Placeholder image" data-target="modal-bis">
                 </div>
                 <div class="column is-9">
                     <div class="media">
@@ -19,7 +19,7 @@
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4"><?php echo e($post['title']); ?></p>
+                        <a href="/?site=show_post&post_id=<?php echo e($post['id']); ?>"><p class="title is-4"><?php echo e($post['title']); ?></p></a>
                             <p class="subtitle is-6"><?php echo e($post['created_at']); ?> by <a href="/?site=user_profile&id=<?php echo e($post['user_id']); ?>"><?php echo e($post['username']); ?></a></p>
                         </div>
                     </div>

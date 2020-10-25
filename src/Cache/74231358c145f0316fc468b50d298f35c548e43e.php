@@ -9,6 +9,12 @@
             <div class="control">
                 <input class="input" type="text" name="title">
             </div>
+
+            <?php if($errors && $errors['title']['is_error']): ?>
+                <?php $__currentLoopData = $errors['title']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
         
         <div class="field">
@@ -17,6 +23,12 @@
                 <textarea class="textarea" placeholder="Say something..." name="content"></textarea>
                 <small style="font-style:italic">Mind your words.</small>
             </div>
+
+            <?php if($errors && $errors['content']['is_error']): ?>
+                <?php $__currentLoopData = $errors['content']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
 
         <div class="field">
@@ -24,6 +36,12 @@
             <div class="control">
                 <input type="file" name="image">
             </div>
+
+            <?php if($errors && $errors['image']['is_error']): ?>
+                <?php $__currentLoopData = $errors['image']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
         
         <button type="submit" class="button is-success">Submit</button>

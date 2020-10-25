@@ -11,6 +11,7 @@ use Models\PostsModel;
 class MainController {
     protected $log;
     protected $root_dir;
+    protected $errors = [];
 
     function __construct() {
         // LOG
@@ -27,33 +28,39 @@ class MainController {
     }
 
     function welcome() {
-        
         $model = new PostsModel;
         $result = $model->getAll();
+        $this->render('Welcome',['posts' => $result]);
+    }
 
-        echo $this->blade->make('Welcome',['posts' => $result])->render();
+    function render($page_location,$passing_data = []) {
+        echo $this->blade->make($page_location,$passing_data)->render();
     }
 
     function saveFile($file,$type,$folder) {
-        // RENAME BEFORE SAVE.
-        $file_extension = explode('.',$file[$type]['name']);
-        $file_name = uniqid() . '.' . $file_extension[count($file_extension) - 1];
+        if (!empty($file[$type]['name'])) {
+            // RENAME BEFORE SAVE.
+            $file_extension = explode('.',$file[$type]['name']);
+            $file_name = uniqid() . '.' . $file_extension[count($file_extension) - 1];
 
-        // WHERE THE FILE WILL BE SAVED AT.
-        $file_dir = $this->root_dir . "\\Storage\\$folder\\" . $file_name;
+            // WHERE THE FILE WILL BE SAVED AT.
+            $file_dir = $this->root_dir . "\\Storage\\$folder\\" . $file_name;
 
-        // START SAVING.
-        try {
-            $start_saving = move_uploaded_file($file[$type]['tmp_name'],$file_dir);
-            if (!$start_saving) {
-                throw new Exception("Failed to save the file!");
-            } else {
-                $this->log->warning("A file has been saved at $file_dir");
+            // START SAVING.
+            try {
+                $start_saving = move_uploaded_file($file[$type]['tmp_name'],$file_dir);
+                if (!$start_saving) {
+                    throw new Exception("Failed to save the file!");
+                } else {
+                    $this->log->warning("A file has been saved at $file_dir");
+                }
+            } catch (Exception $e) {
+                $this->log->error($e->getMessage());
             }
-        } catch (Exception $e) {
-            $this->log->error($e->getMessage());
+        } else {
+            return (string) "no_image";
         }
-        
+            
         return (string) $file_name;
     }
 }

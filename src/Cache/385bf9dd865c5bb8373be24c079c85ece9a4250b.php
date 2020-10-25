@@ -18,6 +18,19 @@
         </div>
 
         <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="text" name="email">
+            </div>
+
+            <?php if($errors && $errors['email']['is_error']): ?>
+                <?php $__currentLoopData = $errors['email']['errors_list']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <small class="has-text-danger"><?php echo e($error); ?></small><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+        </div>
+
+        <div class="field">
             <label class="label">Password</label>
             <div class="control">
                 <input class="input" type="password" name="password">

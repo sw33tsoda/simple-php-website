@@ -18,6 +18,19 @@
         </div>
 
         <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="text" name="email">
+            </div>
+
+            @if ($errors && $errors['email']['is_error'])
+                @foreach ($errors['email']['errors_list'] as $error)
+                    <small class="has-text-danger">{{$error}}</small><br>
+                @endforeach
+            @endif
+        </div>
+
+        <div class="field">
             <label class="label">Password</label>
             <div class="control">
                 <input class="input" type="password" name="password">

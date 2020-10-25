@@ -11,15 +11,20 @@ class PostsModel extends DBConnection {
         return $this->connection->query($sql);
     }
 
-    function getBy($id) {
+    function getByUserId($id) {
         $sql = "SELECT posts.*,users.username,users.image as 'avatar' FROM posts,users WHERE posts.user_id = users.id AND posts.user_id = $id ORDER BY posts.created_at DESC";
+        return $this->connection->query($sql);
+    }
+
+    function getByPostId($id) {
+        $sql = "SELECT posts.*,users.username,users.image as 'avatar' FROM posts,users WHERE posts.user_id = users.id AND posts.id = $id ORDER BY posts.created_at DESC";
         return $this->connection->query($sql);
     }
 
     function add($info) {
         $data = (object) $info;
         $created_at = Carbon::now();
-        $sql = "INSERT INTO posts (`title`,`content`,`image`,`created_at`,`user_id`) VALUES ('$data->title','$data->content','$data->image','$created_at','$data->user_id')";
+        $sql = "INSERT INTO posts (`user_id`,`title`,`content`,`image`,`created_at`) VALUES ('$data->user_id','$data->title','$data->content','$data->image','$created_at')";
         return $this->connection->query($sql);
     }
 
