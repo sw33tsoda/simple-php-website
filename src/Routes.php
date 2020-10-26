@@ -3,11 +3,13 @@
 use Controllers\CommentsController;
 use Controllers\UsersController;
 use Controllers\PostsController;
+use Controllers\VotesController;
 
 $route = isset($_GET['site']) ? $_GET['site'] : '';
 $users = new UsersController;
 $posts = new PostsController;
 $comments = new CommentsController;
+$votes = new VotesController;
 
 switch ($route) {
     case 'welcome': { 
@@ -63,6 +65,11 @@ switch ($route) {
     
     case 'get_comment': {
         $comments->get_comment();
+        break;
+    }
+
+    case 'vote': {
+        $votes->vote();
         break;
     }
 

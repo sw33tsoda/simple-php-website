@@ -41,24 +41,32 @@ class DBConnection {
                 `title` varchar(512),
                 `content` varchar(4096),
                 `image` varchar(64),
-                `created_at` datetime
-            )",
-
-            'votes' => "CREATE TABLE votes (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `user_id` int NOT NULL,
-                `post_id` int NOT NULL,
-                `vote_type` varchar(32),
-                `created_at` datetime    
+                `created_at` datetime,
+                FOREIGN KEY (user_id) REFERENCES users(id)
             )",
 
             'comments' => "CREATE TABLE comments (
                 `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                 `user_id` int NOT NULL,
                 `post_id` int NOT NULL,
+                `upvotes` int NOT NULL DEFAULT 0,
+                `downvotes` int NOT NULL DEFAULT 0,
                 `comment` varchar(1024),
-                `created_at` datetime
-            )",
+                `created_at` datetime,
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (post_id) REFERENCES posts(id)
+            )", 
+
+            'votes' => "CREATE TABLE votes (
+                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                `user_id` int NOT NULL,
+                `comment_id` int NOT NULL,
+                `is_voted` bit DEFAULT 0,
+                `vote_type` varchar(64),
+                `created_at` datetime,
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (comment_id) REFERENCES comments(id)
+            )"
         ];
     }
 

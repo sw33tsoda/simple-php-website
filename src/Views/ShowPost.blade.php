@@ -24,7 +24,7 @@
 <div id="comment"></div>
 <br/>
 
-<script type="text/babel"  src="src/Views/Comment/index.js"></script>
+<script type="text/babel"  src="src/Views/CommentSection/index.js"></script>
 @if (isset($_SESSION['user']))
 <script type="text/babel">
   const user_info = {
@@ -42,5 +42,5 @@
 @endif
 <script type="text/babel">
   const comment = document.querySelector('#comment');
-  ReactDOM.render(<Comment data={user_info}/>,comment);
+  ReactDOM.render(<CommentSection data={user_info}/>,comment);
 </script>

@@ -1,6 +1,6 @@
 const {useEffect,useState,useRef} = React;
 
-function Comment(props) {
+function CommentSection(props) {
     const {image,user_id,post_id} = props.data;
     const [comment,setComment] = useState('');
     const [commentList,setCommentList] = useState([]);
@@ -73,7 +73,6 @@ function Comment(props) {
         });
     }
     
-    console.log(queryString);
     return (
         <React.Fragment>
             {user_id && <CommentForm 
@@ -137,29 +136,59 @@ function CommentList(props) {
     const {data,getMoreComments} = props;
     return (
         <React.Fragment>
-            {data.map((comment,index) => {
-                return <div className="bd-snippet-preview mb-4" key={index}>
-                <article className="media">
-                    <figure className="media-left">
-                    <p className="image is-64x64 is-square">
-                        <img className="is-rounded" src={`src/Storage/Images/${comment.avatar}`}/>
-                    </p>
-                    </figure>
-                    <div className="content">
-                        <p>
-                            <a style={{color:'black'}} href={`/?site=user_profile&id=${comment.user_id}`}><strong>{comment.username}</strong></a>
-                        <br/>
-                            <span style={{fontStyle:'italic',fontSize:'0.9em'}}>
-                                {comment.comment}
-                            </span>
-                        <br/>
-                            <small><a>Like</a> · {comment.created_at}</small>
-                        </p>
-                    </div>
-                </article>
-            </div>
-            })}
+            {data.map((comment,index) => <Comment key={index} data={comment}/>)}
             <a href=" #" onClick={getMoreComments}>More comments</a>
         </React.Fragment>
+    );
+}
+
+function Comment(props) {
+    const {avatar,user_id,username,comment,created_at,upvotes,downvotes,id} = props.data;
+
+    const handleVoting = async (vote) => {
+        fetch(`/?site=vote&comment_id=${id}&user_id=${user_id}&vote_type=${vote}`).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    return (
+        <div className="bd-snippet-preview mb-4">
+            <article className="media">
+                <figure className="media-left">
+                <p className="image is-64x64 is-square">
+                    <img className="is-rounded" src={`src/Storage/Images/${avatar}`}/>
+                </p>
+                </figure>
+                <div className="content">
+                    <p>
+                        <a style={{color:'black'}} href={`/?site=user_profile&id=${user_id}`}><strong>{username}</strong></a>
+                    <br/>
+                        <span style={{fontStyle:'italic',fontSize:'0.9em'}}>
+                            {comment}
+                        </span>
+                    <br/>
+            
+                    </p>
+
+                    <div className="field is-grouped is-grouped-multiline mt-4">
+                        <div className="control">
+                            <div className="tags has-addons" onClick={() => handleVoting('upvote')}>
+                                <span className="tag">Upvote</span>
+                                <p className="tag is-success">{upvotes}</p> 
+                            </div>
+                        </div>
+                        <div className="control">
+                            <div className="tags has-addons" onClick={() => handleVoting('downvote')}>
+                                <span className="tag">Downvote</span>
+                                <p className="tag is-danger">{downvotes}</p> 
+                            </div>
+                        </div>
+                        <small>{created_at}</small>
+                    </div>
+                </div>
+            </article>
+        </div>        
     );
 }

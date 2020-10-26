@@ -11,13 +11,22 @@ class CommentsModel extends DBConnection {
         return $this->connection->query($sql);
     }
 
+    function upvote($info) {
+        
+    }
+
     function getAll($params) {
         $latest = "ASC";
         $limit = (int) $params['limit'];
         if ($params['latest'] == 'true') {
             $latest = "DESC";
         }
-        $sql = "SELECT comments.*,users.username,users.image as 'avatar' FROM comments,users WHERE post_id = {$params['post_id']} AND users.id = comments.user_id ORDER BY created_at {$latest} LIMIT {$limit}";
+        $sql = "SELECT comments.*,users.username,users.image as 'avatar' 
+                FROM comments,users
+                WHERE post_id = {$params['post_id']} 
+                    AND users.id = comments.user_id 
+                ORDER BY created_at {$latest} 
+                LIMIT {$limit}";
         return $this->connection->query($sql);
     }
 }
