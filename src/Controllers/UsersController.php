@@ -16,7 +16,7 @@ class UsersController extends MainController {
         $this->render('UserProfile',[
             'user_info' => $user_info,
             'user_posts' => $user_posts,
-            ]);
+        ]);
     }
 
     function register() {

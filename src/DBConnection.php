@@ -42,7 +42,7 @@ class DBConnection {
                 `content` varchar(4096),
                 `image` varchar(64),
                 `created_at` datetime,
-                FOREIGN KEY (user_id) REFERENCES users(id)
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             )",
 
             'comments' => "CREATE TABLE comments (
@@ -53,8 +53,8 @@ class DBConnection {
                 `downvotes` int NOT NULL DEFAULT 0,
                 `comment` varchar(1024),
                 `created_at` datetime,
-                FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (post_id) REFERENCES posts(id)
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
             )", 
 
             'votes' => "CREATE TABLE votes (
@@ -64,8 +64,8 @@ class DBConnection {
                 `is_voted` bit DEFAULT 0,
                 `vote_type` varchar(64),
                 `created_at` datetime,
-                FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (comment_id) REFERENCES comments(id)
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
             )"
         ];
     }

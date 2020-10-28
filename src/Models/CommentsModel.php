@@ -11,22 +11,29 @@ class CommentsModel extends DBConnection {
         return $this->connection->query($sql);
     }
 
-    function upvote($info) {
-        
-    }
-
     function getAll($params) {
         $latest = "ASC";
         $limit = (int) $params['limit'];
         if ($params['latest'] == 'true') {
             $latest = "DESC";
         }
-        $sql = "SELECT comments.*,users.username,users.image as 'avatar' 
-                FROM comments,users
-                WHERE post_id = {$params['post_id']} 
-                    AND users.id = comments.user_id 
+        $sql = "SELECT comments.*,votes.is_voted,votes.vote_type,users.username,users.image as 'avatar' 
+                FROM comments
+                LEFT JOIN votes
+                ON comments.id = votes.comment_id
+                LEFT JOIN users
+                ON comments.user_id = users.id
+                AND post_id = {$params['post_id']}
+                GROUP BY comments.id
                 ORDER BY created_at {$latest} 
                 LIMIT {$limit}";
         return $this->connection->query($sql);
+    }
+
+    function delete($info) {
+        $data = (object) $info;
+        $sql = "DELETE FROM comments WHERE comments.id = '$data->comment_id' AND comments.user_id = '$data->user_id'";
+        $this->connection->query($sql);
+        echo $this->connection->error;
     }
 }

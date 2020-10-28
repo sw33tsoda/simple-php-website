@@ -68,8 +68,20 @@ switch ($route) {
         break;
     }
 
+    case 'delete_comment': {
+        if (isset($_SESSION['user']))
+        $comments->delete_comment();
+        break;
+    }
+
     case 'vote': {
-        $votes->vote();
+        if (isset($_SESSION['user']))
+            $votes->vote();
+        break;
+    }
+
+    case 'get_votes': {
+            $votes->get_votes();
         break;
     }
 

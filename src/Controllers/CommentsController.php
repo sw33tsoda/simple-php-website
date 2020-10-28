@@ -18,4 +18,9 @@ class CommentsController extends MainController {
         }
         echo "@JSON@".json_encode($result)."@JSON@";
     }
+
+    function delete_comment() {
+        $model = new CommentsModel;
+        $model->delete($_GET);
+    }
 }

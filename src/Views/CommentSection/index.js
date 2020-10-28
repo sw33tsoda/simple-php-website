@@ -11,6 +11,8 @@ function CommentSection(props) {
     });
     const commentRef = useRef();
 
+    const [reRenderTimes,setReRenderTimes] = useState(0);
+
     useEffect(() => {
         const getCommentList = async () => {
             const {post_id,latest,limit} = queryString;
@@ -24,7 +26,7 @@ function CommentSection(props) {
             });
         }
         getCommentList();
-    },[comment == '',queryString]);
+    },[comment == '',queryString,reRenderTimes]);
 
     const handleCommentInput = async (event) => {
         const {value} = event.target;
@@ -72,6 +74,10 @@ function CommentSection(props) {
             limit: queryString.limit + 10,
         });
     }
+
+    const handleReRenderTimes = async () => {
+        await setReRenderTimes(reRenderTimes + 1);
+    }
     
     return (
         <React.Fragment>
@@ -85,7 +91,7 @@ function CommentSection(props) {
                 changeCommentSortingType={handleSorting}
             />}
             <br></br>
-            <CommentList data={commentList} getMoreComments={handleGetMoreComments}/>
+            <CommentList data={commentList} loggedUserId={user_id} getMoreComments={handleGetMoreComments} reRender={handleReRenderTimes}/>
         </React.Fragment>
     );
 }
@@ -118,7 +124,7 @@ function CommentForm(props) {
                     </label>
                     <div className="control ml-4">
                         <div className="select">
-                            <select value={commentSortingType} onChange={changeCommentSortingType}>    
+                            <select value={commentSortingType} onChange={changeCommentSortingType}>
                                 <option value={true}>Latest</option>
                                 <option value={false}>Oldest</option>
                             </select>
@@ -133,24 +139,59 @@ function CommentForm(props) {
 }
 
 function CommentList(props) {
-    const {data,getMoreComments} = props;
+    const {data,getMoreComments,loggedUserId,reRender} = props;
     return (
         <React.Fragment>
-            {data.map((comment,index) => <Comment key={index} data={comment}/>)}
+            {data.map((comment,index) => <Comment key={index} loggedUserId={loggedUserId} data={comment} reRender={reRender}/>)}
             <a href=" #" onClick={getMoreComments}>More comments</a>
         </React.Fragment>
     );
 }
 
 function Comment(props) {
-    const {avatar,user_id,username,comment,created_at,upvotes,downvotes,id} = props.data;
+    const {avatar,user_id,username,comment,created_at,id,upvotes,downvotes,is_voted,vote_type} = props.data;
+    const {reRender} = props;
+    const {loggedUserId} = props;
+    // const [voteTimes,setVoteTimes] = useState(0);
+    
+    // const [vote,setVote] = useState({});
+    // useEffect(() => {
+    //     const getVotes = async () => {
+    //         fetch(`/?site=get_votes&comment_id=${id}&user_id=${user_id}`).then(response => {
+    //             response.text().then((text) => {
+    //                 const data = text.split('@JSON@')[1];
+    //                 setVote(JSON.parse(data));
+    //             })
+    //         }).catch(error => {
+    //             console.log(error);
+    //         });
+    //     }
+    //     getVotes();
+    // },[voteTimes]);
 
     const handleVoting = async (vote) => {
-        fetch(`/?site=vote&comment_id=${id}&user_id=${user_id}&vote_type=${vote}`).then(response => {
-            console.log(response);
+        fetch(`/?site=vote&comment_id=${id}&user_id=${loggedUserId}&vote_type=${vote}`).then(response => {
+            if (response.status == 200) {
+                reRender();
+            }
         }).catch(error => {
             console.log(error);
         });
+    }
+
+    const handleDeleteComment = async () => {
+        if (user_id == loggedUserId) {
+            fetch(`/?site=delete_comment&comment_id=${id}&user_id=${loggedUserId}`).then(response => {
+                if (response.status == 200) {
+                    reRender();
+                    console.log(response);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        } else {
+            alert('Something is wrong');
+        }
     }
 
     return (
@@ -175,17 +216,17 @@ function Comment(props) {
                     <div className="field is-grouped is-grouped-multiline mt-4">
                         <div className="control">
                             <div className="tags has-addons" onClick={() => handleVoting('upvote')}>
-                                <span className="tag">Upvote</span>
+                                <span className={`tag`}>Upvote</span>
                                 <p className="tag is-success">{upvotes}</p> 
                             </div>
                         </div>
                         <div className="control">
                             <div className="tags has-addons" onClick={() => handleVoting('downvote')}>
-                                <span className="tag">Downvote</span>
+                                <span className={`tag`}>Downvote</span>
                                 <p className="tag is-danger">{downvotes}</p> 
                             </div>
                         </div>
-                        <small>{created_at}</small>
+                        <small>{created_at} {user_id == loggedUserId && <span className="tag is-danger is-small ml-4" onClick={handleDeleteComment}>Delete</span>}</small>
                     </div>
                 </div>
             </article>
