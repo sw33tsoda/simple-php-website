@@ -17,6 +17,7 @@ class DBConnection {
         $this->connection->select_db($this->database);
 
         if ($create) {
+            echo 'reached';
             foreach ($this->create_tables() as $sql) {
                 $this->connection->query($sql);
             }

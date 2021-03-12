@@ -102,7 +102,7 @@ function CommentForm(props) {
         <article className="media">
             <figure className="media-left">
                 <p className="image is-64x64 is-square">
-                    <img className="is-rounded" src={`src/Storage/Images/${userImage}`}/>
+                    <img className="is-rounded" style={{objectFit:'cover'}} src={`src/Storage/Images/${userImage}`}/>
                 </p>
             </figure>
             <div className="media-content">
@@ -199,7 +199,7 @@ function Comment(props) {
             <article className="media">
                 <figure className="media-left">
                 <p className="image is-64x64 is-square">
-                    <img className="is-rounded" src={`src/Storage/Images/${avatar}`}/>
+                    <img className="is-rounded" style={{objectFit:'cover'}} src={`src/Storage/Images/${avatar}`}/>
                 </p>
                 </figure>
                 <div className="content">
